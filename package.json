@@ -1,10 +1,10 @@
 {
-  "name": "myPetApp React",
+  "name": "myPetApp",
   "version": "0.0.1",
   "description": "Basic React Project to make bookings",
   "repository": {
     "type": "git",
-    "url":
+    "url": "https://github.com/Ollynov/myPetApp"
   },
   "author": "Aljosha Novakovic",
   "devDependencies": {

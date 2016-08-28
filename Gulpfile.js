@@ -5,9 +5,33 @@ var gulp = require('gulp'),
 var src = './process',
     app = './builds/app';
 
+gulp.task('js', function() {
+  return gulp.src( src + '/js/app.js' )
+    .pipe(browserify({
+    	  transform: 'reactify',
+    	  debug: true
+    }))
+    .on('error', function(err) {
+    	console.error('Error!', err.message);
+    })
+    .pipe(gulp.dest(app + '/js'));
+});
 
+gulp.task('webserver', function() {
+	gulp.src( app + '/' )
+	  .pipe(webserver({
+	  	livereload: true,
+	  	open: true
+	  }));
+});
 
+gulp.task('watch', function() {
+	gulp.watch( src + '/js/**/*', ['js']);
+  gulp.watch( app + '/css/**/*.css', ['css']);
+  gulp.watch([ app + '/**/*.html'], ['html']);
+})
 
+gulp.task('default', ['watch', 'webserver']);
 
 // var gulp = require('gulp'),
 //     browserify = require('gulp-browserify'),
