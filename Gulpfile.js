@@ -17,12 +17,8 @@ gulp.task('js', function() {
     .pipe(gulp.dest(app + '/js'));
 });
 
-gulp.task('webserver', function() {
-	gulp.src( app + '/' )
-	  .pipe(webserver({
-	  	livereload: true,
-	  	open: true
-	  }));
+gulp.task('html', function() {
+  gulp.src( app + '/**/*.html');
 });
 
 gulp.task('watch', function() {
@@ -31,7 +27,15 @@ gulp.task('watch', function() {
   gulp.watch([ app + '/**/*.html'], ['html']);
 })
 
-gulp.task('default', ['watch', 'webserver']);
+gulp.task('webserver', function() {
+  gulp.src( app + '/' )
+    .pipe(webserver({
+      livereload: true,
+      open: true
+    }));
+});
+
+gulp.task('default', ['watch', 'html', 'webserver']);
 
 // var gulp = require('gulp'),
 //     browserify = require('gulp-browserify'),
