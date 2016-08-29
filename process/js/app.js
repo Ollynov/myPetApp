@@ -17,6 +17,10 @@ var MainInterface = React.createClass({
 		}.bind(this));
 	},
 
+  componentWillUnmount: function() {
+  	this.serverRequest.abort();
+  } // this is a safety measure in case there are outstanding requests after we are all done
+
 	render: function() {
 	  var filteredApts = this.state.myAppointments;
 	  filteredApts = filteredApts.map(function(item, index) {
