@@ -1,6 +1,7 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-var AptList = require('./aptList')
+var AptList = require('./aptList');
+var _ = require('lodash');
 
 var MainInterface = React.createClass({
 	getInitialState: function() {
@@ -22,12 +23,18 @@ var MainInterface = React.createClass({
   	this.serverRequest.abort();
   }, // this is a safety measure in case there are outstanding requests after we are all done
 
+  deleteMessage: function() {
+
+  },
+
 	render: function() {
 	  var filteredApts = this.state.myAppointments;
 	  filteredApts = filteredApts.map(function(item, index) {
       return (
       	<AptList key={ index }
-      	  singleItem= { item } />
+      	  singleItem= { item }
+      	  whichItem = { item }
+      	  onDelete = { this.deleteMessage }/>
       )
 	  }.bind(this));
 
