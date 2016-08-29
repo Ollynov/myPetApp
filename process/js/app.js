@@ -1,5 +1,6 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
+var AptList = require('./aptList')
 
 var MainInterface = React.createClass({
 	getInitialState: function() {
@@ -12,28 +13,21 @@ var MainInterface = React.createClass({
 		this.serverRequest = $.get('./js/data.json', function(result) {
       var tempApts = result;
       this.setState({
-      	myAppointments: tempApts
+      	myAppointments: result
       }); // we are setting the state
 		}.bind(this));
 	},
 
   componentWillUnmount: function() {
   	this.serverRequest.abort();
-  } // this is a safety measure in case there are outstanding requests after we are all done
+  }, // this is a safety measure in case there are outstanding requests after we are all done
 
 	render: function() {
 	  var filteredApts = this.state.myAppointments;
 	  filteredApts = filteredApts.map(function(item, index) {
       return (
-      	<li key={index}>
-		      <div>
-		        <span>{ this.state.myAppointments[index].petName } </span>
-		        Appointment on: <span>{ this.state.myAppointments[index].aptDate }</span>
-		      </div>
-		      <div>
-		        <span>{ this.state.myAppointments[index].ownerName }</span>
-		      </div>
-		    </li>
+      	<AptList key={ index }
+      	  singleItem= { item } />
       )
 	  }.bind(this));
 
@@ -43,6 +37,8 @@ var MainInterface = React.createClass({
 			  </ul>
 	    </div>
 		)
+
+
 		// var showTitle;
 		// if (this.state.show) {
 		// 	showTitle = 'New';
@@ -74,19 +70,9 @@ var MainInterface = React.createClass({
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ReactDOM.render(<MainInterface />, document.getElementById('petAppointments'));
+
+
+
+
+
